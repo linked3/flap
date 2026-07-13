@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "package": "net.linkedto.flap.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "minVersion": "0.8",
+  "client": [
+  ],
+  "mixins": [
+    "PlayerMixin",
+    "LivingEntityMixin",
+    "FireworkRocketItemMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
