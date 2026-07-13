@@ -15,22 +15,33 @@ public class CameraMixin {
     @Shadow
     private Entity entity;
 
+    @Shadow
+    private float yRot;
+
+    @Unique
+    private float flap$prevCameraYaw = Float.NaN;
+
     @Unique
     private float flap$roll;
 
     @ModifyArg(method = "setRotation", at = @At(value = "INVOKE", target = "Lorg/joml/Quaternionf;rotationYXZ(FFF)Lorg/joml/Quaternionf;", remap = false), index = 2)
     private float flap$addElytraRoll(float roll) {
         if (entity instanceof LocalPlayer player && player.isFallFlying()) {
-            float yawPrev = player.yRotO;
-            float yawCurr = player.getYRot();
-            float yawDelta = Mth.wrapDegrees(yawCurr - yawPrev);
+            if (Float.isNaN(flap$prevCameraYaw)) {
+                flap$prevCameraYaw = yRot;
+                return roll;
+            }
 
-            float targetRoll = Mth.clamp(yawDelta * -0.3F, -20F, 20F) * Mth.DEG_TO_RAD;
-            flap$roll += (targetRoll - flap$roll) * 0.15F;
+            float yawDelta = Mth.wrapDegrees(yRot - flap$prevCameraYaw);
+            flap$prevCameraYaw = yRot;
+
+            float targetRoll = Mth.clamp(yawDelta * 4.0F, -25F, 25F) * Mth.DEG_TO_RAD;
+            flap$roll += (targetRoll - flap$roll) * 0.3F;
 
             return roll + flap$roll;
         }
 
+        flap$prevCameraYaw = Float.NaN;
         flap$roll *= 0.85F;
         return roll;
     }
