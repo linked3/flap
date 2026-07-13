@@ -6,9 +6,8 @@
   "client": [
   ],
   "mixins": [
-    "PlayerMixin",
-    "LivingEntityMixin",
-    "FireworkRocketItemMixin"
+    "FireworkRocketItemMixin",
+    "PlayerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
