@@ -9,6 +9,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 
 public class FlapNetwork {
+    // c2s packet: client sends when flapping, server drains exhaustion
     public record ApplyBoostPayload() implements CustomPacketPayload {
         public static final ApplyBoostPayload INSTANCE = new ApplyBoostPayload();
         public static final CustomPacketPayload.Type<ApplyBoostPayload> TYPE = new CustomPacketPayload.Type<>(Flap.id("apply_boost"));
@@ -33,7 +34,7 @@ public class FlapNetwork {
         NetworkManager.registerC2S(ApplyBoostPayload.TYPE, ApplyBoostPayload.STREAM_CODEC, (payload, context) -> {
             context.queue(() -> {
                 Player player = context.getPlayer();
-                if (player instanceof ServerPlayer sp && sp.isFallFlying() && !sp.isCreative() && !sp.isSpectator() && sp.getFoodData().getFoodLevel() > 0) {
+                if (player instanceof ServerPlayer sp && sp.isFallFlying() && !sp.isCreative() && !sp.isSpectator() && sp.getFoodData().getFoodLevel() > 0 && sp.getXRot() < 0) {
                     sp.getFoodData().addExhaustion(0.04F);
                 }
             });

@@ -12,6 +12,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 @Mixin(Camera.class)
 public class CameraMixin {
+    // smooth camera tilt based on yaw delta during flight
     @Shadow
     private Entity entity;
 

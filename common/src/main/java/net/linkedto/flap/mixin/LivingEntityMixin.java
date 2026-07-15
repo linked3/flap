@@ -14,6 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LivingEntity.class)
 public class LivingEntityMixin {
+    // velocity boost at travel() head; trinket elytra fall-flying override
     @Shadow
     protected boolean canGlide() { return false; }
 

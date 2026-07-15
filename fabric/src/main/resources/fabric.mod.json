@@ -3,7 +3,7 @@
   "id": "flap",
   "version": "${version}",
   "name": "flap",
-  "description": "Elytra stamina overhaul — fly with stamina instead of fireworks.",
+  "description": "Elytra stamina overhaul. Fly with stamina instead of fireworks.",
   "authors": [
     "linkedto"
   ],

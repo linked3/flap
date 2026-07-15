@@ -10,7 +10,7 @@ import dev.architectury.networking.NetworkManager;
 
 @Mixin(Player.class)
 public class PlayerMixin {
-
+    // sends c2s boost packet from client tick when looking up + pressing w
     @Inject(method = "tick", at = @At("TAIL"))
     private void flap$onTick(CallbackInfo ci) {
         Player player = (Player) (Object) this;
@@ -18,6 +18,7 @@ public class PlayerMixin {
         if (!player.isFallFlying() || player.isSpectator()) return;
         if (player.getFoodData().getFoodLevel() <= 0) return;
         if (player.zza <= 0) return;
+        if (player.getXRot() >= 0) return;
 
         NetworkManager.sendToServer(FlapNetwork.ApplyBoostPayload.INSTANCE);
     }

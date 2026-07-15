@@ -5,6 +5,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.linkedto.flap.Flap;
 
 public final class FlapFabric implements ModInitializer {
+    // fabric init; loads optional trinkets compat
     @Override
     public void onInitialize() {
         Flap.init();
